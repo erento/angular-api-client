@@ -1,0 +1,73 @@
+{
+  "name": "ng2-api-client",
+  "version": "1.0.0",
+  "description": "API client for Angular",
+  "files": [
+    "src",
+    "dist/*.js",
+    "index.d.ts",
+    "tsconfig.json"
+  ],
+  "main": "dist/angular-api-client.umd.js",
+  "scripts": {
+    "build": "npm run tsc && npm run rollup",
+    "karma": "node_modules/.bin/karma start",
+    "lint": "tslint '{src,test}/**/*.ts' -e '**/*.d.ts'",
+    "prepublish": "npm run build",
+    "rollup": "./node_modules/.bin/rollup -c -o dist/angular-api-client.umd.js",
+    "postrollup": "./node_modules/.bin/uglifyjs ./dist/angular-api-client.umd.js > ./dist/angular-api-client.umd.min.js",
+    "test": "npm run karma",
+    "tsc": "node_modules/.bin/tsc -p ."
+  },
+  "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erento/angular-api-client.git"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "api",
+    "command",
+    "client",
+    "http",
+    "ng"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^2.4.0",
+    "@angular/http": "^2.4.0",
+    "rxjs": "^5.1.0"
+  },
+  "devDependencies": {
+    "@angular/common": "~2.4.8",
+    "@angular/compiler": "~2.4.8",
+    "@angular/core": "~2.4.8",
+    "@angular/http": "~2.4.8",
+    "@angular/platform-browser": "~2.4.8",
+    "@angular/platform-browser-dynamic": "~2.4.8",
+    "@types/core-js": "~0.9.35",
+    "@types/jasmine": "~2.5.43",
+    "codelyzer": "~2.0.0",
+    "core-js": "~2.4.1",
+    "jasmine-core": "~2.5.2",
+    "karma": "~1.5.0",
+    "karma-jasmine": "~1.1.0",
+    "karma-phantomjs-launcher": "~1.0.2",
+    "karma-sourcemap-loader": "~0.3.7",
+    "karma-spec-reporter": "~0.0.30",
+    "karma-webpack": "~1.8.0",
+    "phantomjs-prebuilt": "~2.1.14",
+    "rollup": "~0.41.4",
+    "rollup-plugin-typescript": "~0.8.1",
+    "rxjs": "~5.2.0",
+    "ts-loader": "~0.8.2",
+    "tslint": "~4.4.2",
+    "tslint-eslint-rules": "~3.2.3",
+    "typescript": "~2.2.1",
+    "uglify-js": "~2.7.5",
+    "webpack": "~1.13.3",
+    "zone.js": "~0.7.7"
+  },
+  "dependencies": {}
+}

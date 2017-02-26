@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "types": [
+      "core-js",
+      "jasmine"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "index.d.ts",
+    "src/*.d.ts",
+    "src/*/*.d.ts",
+    "test/*/*.d.ts"
+  ]
+}
