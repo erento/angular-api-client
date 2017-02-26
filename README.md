@@ -1,6 +1,6 @@
 # API client for Angular
 
-Easy to use API client based on [Command patter](https://en.wikipedia.org/wiki/Command_pattern) for [Angular framework](https://github.com/angular/angular).
+Easy to use API client based on [Command pattern](https://en.wikipedia.org/wiki/Command_pattern) for [Angular framework](https://github.com/angular/angular).
 
 This module works with Angular 2.4 and higher.
 
