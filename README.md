@@ -1,5 +1,8 @@
 # API client for Angular
 
+[![Build Status](https://img.shields.io/travis/erento/angular-api-client.svg?style=flat-square)](https://travis-ci.org/erento/angular-api-client)
+![License](https://img.shields.io/github/license/erento/angular-api-client.svg?style=flat-square)
+
 Easy to use API client based on [Command pattern](https://en.wikipedia.org/wiki/Command_pattern) for [Angular framework](https://github.com/angular/angular).
 
 This module works with Angular 2.4 and higher.
