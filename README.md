@@ -16,13 +16,11 @@ npm install --save ng2-api-client
 Import __API client module__ to your `app.module.ts`
 ```ts
 // ...
-import { ApiClientModule } from 'ng2-api-client';
+import {ApiClientModule} from 'ng2-api-client';
 // ...
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     // ...
     ApiClientModule,
@@ -41,16 +39,17 @@ Inject it to your class (could be Component, Service, etc...)
   @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
     providers: [ApiClient],
   })
   export class AppComponent implements OnInit {
     constructor(private apiClient: ApiClient) {}
     
     ngOnInit() {
-      this.apiClient.executeRequest<User>(new FetchUserCommand()).subscribe((user: User) => {
-        console.log('My user data is: ', user);
-      });
+      this.apiClient
+        .executeRequest<User>(new FetchUserCommand('u-u-i-d'))
+        .subscribe((user: User) => {
+          console.log('My user data is: ', user);
+        });
     }
   }
   ```
@@ -60,18 +59,21 @@ Inject it to your class (could be Component, Service, etc...)
   import {RequestMethod} from '@angular/http';
   import {ApiBaseCommand} from 'ng2-api-client';
   
-  const url: string = '/api/search/products/:uuid';
-  
-  export class FetchUserCommand extends ApiBaseCommand {
-      public method: RequestMethod = RequestMethod.Get;
-  
-      constructor (userUuid: string) {
-          super(url, {
-              uuid: userUuid // `uuid` matches flag in the url and will be automatically replaced 
-          });
-      }
+  export class FetchUserCommand implements ApiBaseCommand {
+    public headers: Headers = new Headers({'X-Forwarded-For': 'proxy1'});
+    public method: RequestMethod = RequestMethod.Get;
+    public url: string = '/api/user/:uuid';
+    public urlPathParameters: UrlPathParameters;
+
+    constructor (userUuid: string) {
+      this.urlPathParameters = {uuid: userUuid};
+    }
   }
   ```
+
+## How to retry an request?
+`ApiClient.executeRequest` has second parameter where you can pass amount
+of required retries and ApiClient will take care of it.
 
 ## Testing
 Run `npm test` to execute tests.
