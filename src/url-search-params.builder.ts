@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {QueryParameter} from './apiBaseCommand';
+import {QueryParameters} from './apiBaseCommand';
 
 @Injectable()
 export class UrlSearchParamsBuilder {
-    public build (queryParameters: QueryParameter[]): URLSearchParams {
+    public build (queryParameters: QueryParameters): URLSearchParams {
         if (!queryParameters) {
             queryParameters = [];
         }

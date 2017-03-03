@@ -11,7 +11,7 @@ import {
 } from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
 import {ApiClient, ApiBaseCommand} from '../src/index';
-import {QueryParameter, UrlPathParameters} from '../src/apiBaseCommand';
+import {QueryParameters, UrlPathParameters} from '../src/apiBaseCommand';
 import {UrlBuilder} from '../src/url.builder';
 import {UrlSearchParamsBuilder} from '../src/url-search-params.builder';
 
@@ -19,7 +19,7 @@ import {UrlSearchParamsBuilder} from '../src/url-search-params.builder';
 class GetCommand implements ApiBaseCommand {
     public url: string = '/my-get-endpoint/';
     public method: RequestMethod = RequestMethod.Get;
-    public queryParameters: QueryParameter[];
+    public queryParameters: QueryParameters;
 
     constructor (name: string) {
         this.queryParameters = [['name', name]];
@@ -46,7 +46,7 @@ class PostCommand implements ApiBaseCommand {
     public url: string = '/my-post-endpoint/';
     public method: RequestMethod = RequestMethod.Post;
     public body = 'My request body';
-    public queryParameters: QueryParameter[];
+    public queryParameters: QueryParameters;
 
     constructor (name?: string) {
         this.queryParameters = name ? [['name', name]] : [];

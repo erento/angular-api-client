@@ -1,6 +1,6 @@
 import {RequestMethod, Headers} from '@angular/http';
 
-export type QueryParameter = [string, string | number];
+export type QueryParameters = [string, string | number][];
 
 export interface UrlPathParameters {
     [key: string]: string | number;
@@ -13,6 +13,6 @@ export interface ApiBaseCommand {
     // optional
     body?: any;
     headers?: Headers;
-    queryParameters?: QueryParameter[];
+    queryParameters?: QueryParameters;
     urlPathParameters?: UrlPathParameters;
 }

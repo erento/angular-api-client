@@ -39,7 +39,6 @@ Inject it to your class (could be Component, Service, etc...)
   @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    providers: [ApiClient],
   })
   export class AppComponent implements OnInit {
     constructor(private apiClient: ApiClient) {}
@@ -57,7 +56,7 @@ Inject it to your class (could be Component, Service, etc...)
 - `fetch-user.command.ts`:  
   ```ts
   import {RequestMethod} from '@angular/http';
-  import {ApiBaseCommand} from 'ng2-api-client';
+  import {ApiBaseCommand, UrlPathParameters} from 'ng2-api-client';
   
   export class FetchUserCommand implements ApiBaseCommand {
     public headers: Headers = new Headers({'X-Forwarded-For': 'proxy1'});
@@ -74,6 +73,49 @@ Inject it to your class (could be Component, Service, etc...)
 ## How to retry an request?
 `ApiClient.executeRequest` has second parameter where you can pass amount
 of required retries and ApiClient will take care of it.
+
+## Documentation
+
+### Command
+#### Required properties:
+
+- __method__
+
+  Method defines HTTP method. It requires enum value of `RequestMethod` from `@angular/http`.
+
+- __url__
+
+  The url path without a scheme. Url can include wildcards starting with `:`.
+  
+  Examples: `/api/user/:id` or `/api/user/:name/:lastname` ...
+  
+  If url includes the wildcard it will be validated with an input defined in the property
+  `urlPathParameters` and replaced by provided value.
+
+
+#### Optional properties:
+
+- __urlPathParameters__
+
+  This is required when the deeplink is included in url.
+  
+  Example: `{role: 'admin'}` with url: `/user/:role` will generate: `/user/role`
+
+- __queryParameters__
+
+  Query parameters define query part. It is array of tuple of `key, value`.
+  
+  _Examples:_
+  
+   `[['id', 3], ['name', 'John']]` will generate: `?id=3&name=John`
+
+- __headers__
+
+  You can provide headers with usage of `Headers` object from `@angular/http`.
+
+- __body__
+
+  Used to set body of your request.
 
 ## Testing
 Run `npm test` to execute tests.
