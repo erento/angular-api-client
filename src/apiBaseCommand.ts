@@ -16,4 +16,5 @@ export interface ApiBaseCommand {
     headers?: Headers;
     queryParameters?: QueryParameters;
     urlPathParameters?: UrlPathParameters;
+    withCredentials?: boolean;
 }
