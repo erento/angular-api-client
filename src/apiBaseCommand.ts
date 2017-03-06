@@ -1,6 +1,7 @@
 import {RequestMethod, Headers} from '@angular/http';
 
-export type QueryParameters = [string, string | number][];
+export type QueryParameter = [string, string | number];
+export type QueryParameters = QueryParameter[];
 
 export interface UrlPathParameters {
     [key: string]: string | number;

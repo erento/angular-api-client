@@ -9,8 +9,8 @@ describe('Url search params builder', () => {
 
     it('should build query parameters list', () => {
         expect(
-            builder.build([['name', 'John'], ['lastname', 'Doe']]).toString()
-        ).toBe('name=John&lastname=Doe');
+            builder.build([['name', 'John'], ['lastname', 'Doe'], ['age', 62]]).toString()
+        ).toBe('name=John&lastname=Doe&age=62');
     });
 
     it('should not fail on edge cases', () => {

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {QueryParameters} from './apiBaseCommand';
+import {QueryParameter, QueryParameters} from './apiBaseCommand';
 
 @Injectable()
 export class UrlSearchParamsBuilder {
