@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/erento/angular-api-client.svg?style=flat-square)](https://travis-ci.org/erento/angular-api-client)
 ![License](https://img.shields.io/github/license/erento/angular-api-client.svg?style=flat-square)
 
-Easy to use API client based on [Command pattern](https://en.wikipedia.org/wiki/Command_pattern) for [Angular framework](https://github.com/angular/angular).
+Easy to use API client based on the [Command pattern](https://en.wikipedia.org/wiki/Command_pattern) for [Angular framework](https://github.com/angular/angular).
 
 This module works with Angular 2.4 and higher.
 
@@ -71,8 +71,8 @@ Inject it to your class (could be Component, Service, etc...)
   ```
 
 ## How to retry an request?
-`ApiClient.executeRequest` has second parameter where you can pass amount
-of required retries and ApiClient will take care of it.
+`ApiClient.executeRequest` has a second parameter where you can pass an amount
+of required retries and the ApiClient will take care of it.
 
 ## Documentation
 
@@ -81,7 +81,7 @@ of required retries and ApiClient will take care of it.
 
 - __method__
 
-  Method defines HTTP method. It requires enum value of `RequestMethod` from `@angular/http`.
+  The property method defines the HTTP method. It requires the enum value of `RequestMethod` from `@angular/http`.
 
 - __url__
 
@@ -89,21 +89,21 @@ of required retries and ApiClient will take care of it.
   
   Examples: `/api/user/:id` or `/api/user/:name/:lastname` ...
   
-  If url includes the wildcard it will be validated with an input defined in the property
-  `urlPathParameters` and replaced by provided value.
+  If the url includes the wildcard it will be validated with an input defined in the property
+  `urlPathParameters` and replaced by the provided value.
 
 
 #### Optional properties:
 
 - __urlPathParameters__
 
-  This is required when the deeplink is included in url.
+  This is required when the wildcard is included in the url.
   
-  Example: `{role: 'admin'}` with url: `/user/:role` will generate: `/user/role`
+  Example: `{role: 'admin'}` with the url: `/user/:role` will generate: `/user/role`
 
 - __queryParameters__
 
-  Query parameters define query part. It is array of tuple of `key, value`.
+  Query parameters define query part. It is an array of a tuple of `key, value`.
   
   _Examples:_
   
@@ -111,11 +111,16 @@ of required retries and ApiClient will take care of it.
 
 - __headers__
 
-  You can provide headers with usage of `Headers` object from `@angular/http`.
+  You can provide headers with the usage of `Headers` object from `@angular/http`.
 
 - __body__
 
-  Used to set body of your request.
+  Used to set the body of your request.
+
+- __withCredential__
+
+  Boolean value that indicates whether or not requests should be made using credentials
+  such as cookies, authorization headers or TLS client certificates.
 
 ## Testing
 Run `npm test` to execute tests.
