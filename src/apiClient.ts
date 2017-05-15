@@ -30,7 +30,7 @@ export class ApiClient {
             body: command.body,
             headers: command.headers,
             params: this.urlSearchParamsBuilder.build(command.queryParameters),
-            withCredentials: command.withCredentials,
+            withCredentials: command.withCredentials === true,
         });
     }
 
