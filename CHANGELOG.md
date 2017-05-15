@@ -1,3 +1,7 @@
+<a name="3.0.1"></a>
+# [3.0.1](https://github.com/erento/angular-api-client/compare/v3.0.0...v3.0.1) (2017-05-15)
+- Bug fix: The command's property `withCredentials` is now consistently converted to the boolean value.
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/erento/angular-api-client/compare/v2.0.3...v3.0.0) (2017-03-30)
 - Increased the peer dependency on Angular to the version 4.
