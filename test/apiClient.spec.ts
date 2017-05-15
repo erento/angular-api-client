@@ -80,7 +80,7 @@ describe('Api Client Service', () => {
             mockBackend.connections.subscribe((connection: MockConnection) => {
                 expect(connection.request.url).toBe('/my-get-endpoint/?name=john');
                 expect(connection.request.method).toBe(0);
-                expect(connection.request.withCredentials).toBeFalsy();
+                expect(connection.request.withCredentials).toBe(false);
 
                 connection.mockRespond(new Response(new ResponseOptions({
                     body: JSON.stringify([{id: 5}, {id: 21}])
@@ -101,7 +101,7 @@ describe('Api Client Service', () => {
                 expect(connection.request.method).toBe(0);
                 expect(connection.request.headers.toJSON()['X-My-Custom-Header'][0]).toBe('Angular');
                 expect(connection.request.headers.values()[0][0]).toBe('Angular');
-                expect(connection.request.withCredentials).toBeFalsy();
+                expect(connection.request.withCredentials).toBe(false);
             });
 
             apiClient.executeRequest(new GetIdCommandWithHeader(4, 'john'), 0).subscribe();
@@ -114,7 +114,7 @@ describe('Api Client Service', () => {
             mockBackend.connections.subscribe((connection: MockConnection) => {
                 expect(connection.request.url).toBe('/my-post-endpoint/');
                 expect(connection.request.method).toBe(1);
-                expect(connection.request.withCredentials).toBeTruthy();
+                expect(connection.request.withCredentials).toBe(true);
 
                 connection.mockRespond(new Response(new ResponseOptions({
                     body: JSON.stringify([{id: 5}, {id: 21}])
@@ -133,7 +133,7 @@ describe('Api Client Service', () => {
             mockBackend.connections.subscribe((connection: MockConnection) => {
                 expect(connection.request.url).toBe('/my-post-endpoint/?name=Markus');
                 expect(connection.request.method).toBe(1);
-                expect(connection.request.withCredentials).toBeTruthy();
+                expect(connection.request.withCredentials).toBe(true);
 
                 connection.mockRespond(new Response(new ResponseOptions({
                     body: JSON.stringify([{id: 5}, {id: 21}])
