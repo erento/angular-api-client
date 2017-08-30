@@ -6,11 +6,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {ApiBaseCommand} from './apiBaseCommand';
 import {UrlBuilder} from './url.builder';
-import {UrlSearchParamsBuilder} from './url-search-params.builder';
 
 @Injectable()
 export class ApiClient {
-    constructor (private http: Http, private urlBuilder: UrlBuilder, private urlSearchParamsBuilder: UrlSearchParamsBuilder) {}
+    constructor (private http: Http, private urlBuilder: UrlBuilder) {}
 
     public executeRequest<T> (command: ApiBaseCommand, retries: number = 0): Observable<T> {
         return this.call(this.getRequest(command))
