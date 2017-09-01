@@ -13,7 +13,6 @@ import {MockBackend, MockConnection} from '@angular/http/testing';
 import {ApiClient, ApiBaseCommand} from '../src/index';
 import {QueryParameters, UrlPathParameters} from '../src/apiBaseCommand';
 import {UrlBuilder} from '../src/url.builder';
-import {UrlSearchParamsBuilder} from '../src/url-search-params.builder';
 
 /* tslint:disable:max-classes-per-file */
 class GetCommand implements ApiBaseCommand {
@@ -22,7 +21,7 @@ class GetCommand implements ApiBaseCommand {
     public queryParameters: QueryParameters;
 
     constructor (name: string) {
-        this.queryParameters = [['name', name]];
+        this.queryParameters = {name: name};
     }
 }
 
@@ -45,12 +44,12 @@ class GetIdCommandWithHeader implements ApiBaseCommand {
 class PostCommand implements ApiBaseCommand {
     public url: string = '/my-post-endpoint/';
     public method: RequestMethod = RequestMethod.Post;
-    public body = 'My request body';
+    public body: string = 'My request body';
     public queryParameters: QueryParameters;
     public withCredentials: boolean = true;
 
     constructor (name?: string) {
-        this.queryParameters = name ? [['name', name]] : [];
+        this.queryParameters = name ? {name: name} : {};
     }
 }
 /* tslint:enable:max-classes-per-file */
@@ -62,7 +61,6 @@ describe('Api Client Service', () => {
             providers: [
                 ApiClient,
                 UrlBuilder,
-                UrlSearchParamsBuilder,
                 {
                     provide: Http,
                     useFactory: (mockBackend: MockBackend, options: RequestOptions): Http => new Http(mockBackend, options),
