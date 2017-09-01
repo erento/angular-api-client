@@ -1,3 +1,22 @@
+<a name="4.0.0-beta.1"></a>
+# [4.0.0-beta.1](https://github.com/erento/angular-api-client/compare/v3.0.2...4.0.0-beta.1) (2017-09-01)
+
+### Breaking changes
+
+* We have changed the way how query parameters are created. Now it is a simple object (`key: value`).
+
+  _Before:_
+
+  ```ts
+  this.queryParameters = [['search', 'neymar'], ['team', 'psg']];
+  ```
+
+  _After:_
+
+  ```ts
+  this.queryParameters = {search: 'neymar', team: 'psg'};
+  ```
+
 <a name="3.0.2"></a>
 # [3.0.2](https://github.com/erento/angular-api-client/compare/v3.0.1...v3.0.2) (2017-07-31)
 - Bug fix: Add missing throw observable.
