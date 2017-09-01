@@ -103,11 +103,11 @@ of required retries and the ApiClient will take care of it.
 
 - __queryParameters__
 
-  Query parameters define query part. It is an array of a tuple of `key, value`.
+  An object defining query parameters.
   
   _Examples:_
   
-   `[['id', 3], ['name', 'John']]` will generate: `?id=3&name=John`
+   `{search: 'neymar', team: 'psg'}` will generate: `?search=neymar&team=psg`
 
 - __headers__
 
