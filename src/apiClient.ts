@@ -1,40 +1,85 @@
 import {Injectable} from '@angular/core';
-import {Response, Http, Request} from '@angular/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {ApiBaseCommand} from './apiBaseCommand';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/switchMap';
+import {ApiBaseCommand, QueryParameters, RequestHeaders} from './apiBaseCommand';
 import {UrlBuilder} from './url.builder';
 
 @Injectable()
 export class ApiClient {
-    constructor (private http: Http, private urlBuilder: UrlBuilder) {}
+    private defaultRetryDelay: number | Date = 0;
+
+    constructor (private httpClient: HttpClient, private urlBuilder: UrlBuilder) {}
 
     public executeRequest<T> (command: ApiBaseCommand, retries: number = 0): Observable<T> {
-        return this.call(this.getRequest(command))
-            .map((response: Response): T => response.json())
+        return this.httpClient.request<T>(
+            command.method,
+            this.urlBuilder.build(command.url, command.urlPathParameters),
+            this.getRequestOptions(command)
+        )
             .catch<any, T>((error: any) => {
                 if (retries > 0) {
-                    return this.executeRequest(command, retries - 1);
+                    const newCommand: ApiBaseCommand = Object.assign({}, command, {__api_client_random_key__: this.getRandomId()});
+
+                    return Observable.of(undefined)
+                        .delay(this.defaultRetryDelay)
+                        .switchMap((): Observable<T> => this.executeRequest(newCommand, retries - 1));
                 }
 
                 return Observable.throw(error);
             });
     }
 
-    private getRequest (command: ApiBaseCommand): Request {
-        return new Request({
-            url: this.urlBuilder.build(command.url, command.urlPathParameters),
-            method: command.method,
-            body: command.body,
-            headers: command.headers,
-            params: command.queryParameters,
-            withCredentials: command.withCredentials === true,
-        });
+    public setRetryDelay (delay: number | Date): void {
+        this.defaultRetryDelay = delay;
     }
 
-    private call (request: Request): Observable<Response> {
-        return this.http.request(request);
+    private getRequestOptions (command: ApiBaseCommand): object {
+        return {
+            body: command.body,
+            headers: this.getHttpHeaders(command.headers),
+            params: this.getHttpParams(command.queryParameters),
+            responseType: command.responseType || 'json',
+            reportProgress: command.reportProgress === true,
+            withCredentials: command.withCredentials === true,
+        };
+    }
+
+    private getHttpParams (queryParameters: QueryParameters): HttpParams {
+        let params: HttpParams = new HttpParams();
+        Object.keys(queryParameters || {}).forEach((key: string): void => {
+            if (queryParameters[key] !== undefined && queryParameters[key] !== null) {
+                params = params.set(key, '' + queryParameters[key]);
+            }
+        });
+
+        return params;
+    }
+
+    private getHttpHeaders (headers: RequestHeaders): HttpHeaders {
+        let httpHeaders: HttpHeaders = new HttpHeaders();
+        Object.keys(headers || {}).forEach((key: string): void => {
+            const h: string | string[] = headers[key];
+            const headerList: string[] = typeof h === 'string' ? [h] : h;
+            headerList.forEach((header: string): void => {
+                if (header !== undefined && header !== null) {
+                    httpHeaders = httpHeaders.has(key) ? httpHeaders.append(key, header) : httpHeaders.set(key, header);
+                }
+            });
+        });
+
+        return httpHeaders;
+    }
+
+    private getRandomId (length: number = 20): string {
+        const s: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        return Array(length)
+            .fill('')
+            .map(() => s.charAt(Math.floor(Math.random() * s.length)))
+            .join('');
     }
 }

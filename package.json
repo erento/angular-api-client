@@ -35,9 +35,10 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": ">=4.0.0",
-    "@angular/http": ">=4.0.0",
-    "rxjs": ">=5.1.0"
+    "@angular/core": ">=4.3.0",
+    "@angular/common": ">=4.3.0",
+    "rxjs": ">=5.1.0",
+    "typscript": ">=2.4.1"
   },
   "devDependencies": {
     "@angular/common": "~4.3.2",
@@ -64,7 +65,7 @@
     "ts-loader": "~2.3.2",
     "tslint": "~4.4.2",
     "tslint-eslint-rules": "~3.2.3",
-    "typescript": "~2.2.1",
+    "typescript": "~2.5.2",
     "uglify-js": "~3.0.27",
     "webpack": "~1.13.3",
     "zone.js": "~0.8.16"

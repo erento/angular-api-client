@@ -9,14 +9,17 @@ export default {
   moduleName: 'api.client',
   external: [
       '@angular/core',
-      '@angular/http',
-      'rxjs/add/operator/map',
+      '@angular/common/http',
+      'rxjs/add/observable/of',
+      'rxjs/add/observable/throw',
+      'rxjs/add/operator/delay',
       'rxjs/add/operator/catch',
+      'rxjs/add/operator/switchMap',
       'rxjs/Observable',
   ],
   globals: {
     '@angular/core': 'ng.core',
-    '@angular/http': 'ng.http',
+    '@angular/common/http': 'ng.common.http',
     'rxjs/Observable': 'rxjx.observable',
   },
   plugins: [typescript({typescript: require('typescript')})]

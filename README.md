@@ -55,11 +55,10 @@ Inject it to your class (could be Component, Service, etc...)
 
 - `fetch-user.command.ts`:  
   ```ts
-  import {RequestMethod} from '@angular/http';
-  import {ApiBaseCommand, UrlPathParameters} from 'ng2-api-client';
+  import {ApiBaseCommand, RequestMethod, UrlPathParameters} from 'ng2-api-client';
   
   export class FetchUserCommand implements ApiBaseCommand {
-    public headers: Headers = new Headers({'X-Forwarded-For': 'proxy1'});
+    public headers: Headers = {'X-Forwarded-For': 'proxy1'};
     public method: RequestMethod = RequestMethod.Get;
     public url: string = '/api/user/:uuid';
     public urlPathParameters: UrlPathParameters;
@@ -81,7 +80,7 @@ of required retries and the ApiClient will take care of it.
 
 - __method__
 
-  The property method defines the HTTP method. It requires the enum value of `RequestMethod` from `@angular/http`.
+  The property method defines the HTTP method. It requires the string enum value of `RequestMethod`.
 
 - __url__
 
@@ -97,9 +96,9 @@ of required retries and the ApiClient will take care of it.
 
 - __urlPathParameters__
 
-  This is required when the wildcard is included in the url.
+  This value is required when the wildcard is included in the url.
   
-  Example: `{role: 'admin'}` with the url: `/user/:role` will generate: `/user/role`
+  Example: `{role: 'admin'}` with the url: `/user/:role` will generate: `/user/admin`
 
 - __queryParameters__
 
@@ -111,7 +110,7 @@ of required retries and the ApiClient will take care of it.
 
 - __headers__
 
-  You can provide headers with the usage of `Headers` object from `@angular/http`.
+  Used to set the headers of your request.
 
 - __body__
 
@@ -121,6 +120,21 @@ of required retries and the ApiClient will take care of it.
 
   Boolean value that indicates whether or not requests should be made using credentials
   such as cookies, authorization headers or TLS client certificates.
+  
+  Default value: `false`.
+
+- __responseType__
+
+  Used to set the response type of your request. Can be one of:
+  `'arraybuffer' | 'blob' | 'json' | 'text'`.
+  
+  Default value: `json`.
+
+- __reportProgress__
+
+  Boolean value that indicates whether or not requests should report about progress.
+  
+  Default value: `false`.
 
 ## Testing
 Run `npm test` to execute tests.
