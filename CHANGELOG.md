@@ -1,5 +1,14 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/erento/angular-api-client/compare/v4.0.0-beta.1...v4.0.0) (2017-09-01)
+
+### Breaking changes
+
+* Uses new Http client from `@angular/common`, dependency on the angular packages raised to higher or equal to `4.3.0`.
+* Headers are now `key=>value` as query/url parameters.
+* Typescript 2.4.1 or higher required.
+
 <a name="4.0.0-beta.1"></a>
-# [4.0.0-beta.1](https://github.com/erento/angular-api-client/compare/v3.0.2...4.0.0-beta.1) (2017-09-01)
+# [4.0.0-beta.1](https://github.com/erento/angular-api-client/compare/v3.0.2...v4.0.0-beta.1) (2017-09-01)
 
 ### Breaking changes
 
