@@ -24,7 +24,7 @@ describe('Url builder', () => {
     });
 
     it('should throw an error', () => {
-        const init = () => builder.build(
+        const init: () => string = (): string => builder.build(
             '/endpoint/:name',
             {
                 id: 4,

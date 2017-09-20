@@ -1,17 +1,7 @@
 import {TestBed, inject} from '@angular/core/testing';
-import {
-    BaseRequestOptions,
-    Headers,
-    Http,
-    HttpModule,
-    RequestMethod,
-    RequestOptions,
-    Response,
-    ResponseOptions,
-} from '@angular/http';
-import {MockBackend, MockConnection} from '@angular/http/testing';
+import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
 import {ApiClient, ApiBaseCommand} from '../src/index';
-import {QueryParameters, UrlPathParameters} from '../src/apiBaseCommand';
+import {RequestHeaders, RequestMethod, QueryParameters, UrlPathParameters} from '../src/apiBaseCommand';
 import {UrlBuilder} from '../src/url.builder';
 
 /* tslint:disable:max-classes-per-file */
@@ -29,9 +19,10 @@ class GetIdCommandWithHeader implements ApiBaseCommand {
     public url: string = '/my-get-endpoint/:id-number/whatever/:name';
     public method: RequestMethod = RequestMethod.Get;
     public urlPathParameters: UrlPathParameters;
-    public headers: Headers = new Headers({
-        'X-My-Custom-Header': 'Angular'
-    });
+    public headers: RequestHeaders = {
+        'X-My-Custom-Header': 'Angular',
+        'X-My-Custom-List-Header': ['JS', '2', undefined, null],
+    };
 
     constructor (id: number, name: string) {
         this.urlPathParameters = {
@@ -48,8 +39,11 @@ class PostCommand implements ApiBaseCommand {
     public queryParameters: QueryParameters;
     public withCredentials: boolean = true;
 
-    constructor (name?: string) {
-        this.queryParameters = name ? {name: name} : {};
+    constructor (name?: string, withCredentials?: boolean) {
+        this.queryParameters = {name: name};
+        if (withCredentials !== undefined) {
+            this.withCredentials = withCredentials;
+        }
     }
 }
 /* tslint:enable:max-classes-per-file */
@@ -57,90 +51,80 @@ class PostCommand implements ApiBaseCommand {
 describe('Api Client Service', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpModule],
+            imports: [HttpClientTestingModule],
             providers: [
                 ApiClient,
                 UrlBuilder,
-                {
-                    provide: Http,
-                    useFactory: (mockBackend: MockBackend, options: RequestOptions): Http => new Http(mockBackend, options),
-                    deps: [MockBackend, BaseRequestOptions]
-                },
-                MockBackend,
-                BaseRequestOptions,
             ]
         });
     });
 
+    afterEach(inject([HttpTestingController], (httpMock: HttpTestingController) => {
+        httpMock.verify();
+    }));
+
     it(
         'should execute GET method and return a response',
-        inject([ApiClient, MockBackend], (apiClient: ApiClient, mockBackend: MockBackend) => {
-            mockBackend.connections.subscribe((connection: MockConnection) => {
-                expect(connection.request.url).toBe('/my-get-endpoint/?name=john');
-                expect(connection.request.method).toBe(0);
-                expect(connection.request.withCredentials).toBe(false);
-
-                connection.mockRespond(new Response(new ResponseOptions({
-                    body: JSON.stringify([{id: 5}, {id: 21}])
-                })));
-            });
-
-            apiClient.executeRequest(new GetCommand('john'), 0).subscribe((response: any) => {
+        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
+            apiClient.executeRequest(new GetCommand('john')).subscribe((response: any) => {
                 expect(response.length).toBe(2);
+                expect(response[0].id).toBe(5);
             });
+
+            const req: TestRequest = httpMock.expectOne('/my-get-endpoint/?name=john');
+
+            expect(req.request.method).toEqual('GET');
+            expect(req.request.withCredentials).toEqual(false);
+
+            req.flush([{id: 5}, {id: 21}]);
         })
     );
 
     it(
         'should execute GET with placeholder replace',
-        inject([ApiClient, MockBackend], (apiClient: ApiClient, mockBackend: MockBackend) => {
-            mockBackend.connections.subscribe((connection: MockConnection) => {
-                expect(connection.request.url).toBe('/my-get-endpoint/4/whatever/john');
-                expect(connection.request.method).toBe(0);
-                expect(connection.request.headers.toJSON()['X-My-Custom-Header'][0]).toBe('Angular');
-                expect(connection.request.headers.values()[0][0]).toBe('Angular');
-                expect(connection.request.withCredentials).toBe(false);
-            });
+        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
+            apiClient.executeRequest(new GetIdCommandWithHeader(4, 'john')).subscribe();
 
-            apiClient.executeRequest(new GetIdCommandWithHeader(4, 'john'), 0).subscribe();
+            const req: TestRequest = httpMock.expectOne('/my-get-endpoint/4/whatever/john');
+
+            expect(req.request.method).toEqual('GET');
+            expect(req.request.withCredentials).toEqual(false);
+            expect(req.request.headers.get('X-My-Custom-Header')).toEqual('Angular');
+            expect(req.request.headers.getAll('X-My-Custom-List-Header')).toEqual(['JS', '2']);
         })
     );
 
     it(
         'should execute POST method and return a response',
-        inject([ApiClient, MockBackend], (apiClient: ApiClient, mockBackend: MockBackend) => {
-            mockBackend.connections.subscribe((connection: MockConnection) => {
-                expect(connection.request.url).toBe('/my-post-endpoint/');
-                expect(connection.request.method).toBe(1);
-                expect(connection.request.withCredentials).toBe(true);
-
-                connection.mockRespond(new Response(new ResponseOptions({
-                    body: JSON.stringify([{id: 5}, {id: 21}])
-                })));
-            });
-
-            apiClient.executeRequest(new PostCommand(), 0).subscribe((response: any) => {
+        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
+            apiClient.executeRequest(new PostCommand()).subscribe((response: any) => {
                 expect(response.length).toBe(2);
             });
+
+            const req: TestRequest = httpMock.expectOne('/my-post-endpoint/');
+
+            expect(req.request.method).toBe('POST');
+            expect(req.request.body).toBe('My request body');
+            expect(req.request.withCredentials).toBe(true);
+
+            req.flush([{id: 5}, {id: 21}]);
         })
     );
 
     it(
         'should execute POST method with query parameter and return a response',
-        inject([ApiClient, MockBackend], (apiClient: ApiClient, mockBackend: MockBackend) => {
-            mockBackend.connections.subscribe((connection: MockConnection) => {
-                expect(connection.request.url).toBe('/my-post-endpoint/?name=Markus');
-                expect(connection.request.method).toBe(1);
-                expect(connection.request.withCredentials).toBe(true);
-
-                connection.mockRespond(new Response(new ResponseOptions({
-                    body: JSON.stringify([{id: 5}, {id: 21}])
-                })));
-            });
-
-            apiClient.executeRequest(new PostCommand('Markus'), 0).subscribe((response: any) => {
+        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
+            apiClient.executeRequest(new PostCommand('Markus', false)).subscribe((response: any) => {
                 expect(response.length).toBe(2);
             });
+
+            const req: TestRequest = httpMock.expectOne('/my-post-endpoint/?name=Markus');
+
+            expect(req.request.method).toBe('POST');
+            expect(req.request.body).toBe('My request body');
+            expect(req.request.withCredentials).toBe(false);
+
+            req.flush([{id: 5}, {id: 21}]);
         })
     );
 });
