@@ -5,7 +5,7 @@ import {UrlPathParameters} from './apiBaseCommand';
 export class UrlBuilder {
     public build (url: string, urlParameters: UrlPathParameters): string {
         if (!urlParameters) {
-            // tslint:disable-next-line
+            // tslint:disable-next-line no-parameter-reassignment
             urlParameters = {};
         }
         this.checkUrlPathParameters(url, urlParameters);
