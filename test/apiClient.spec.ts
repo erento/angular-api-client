@@ -1,7 +1,7 @@
-import {TestBed, inject} from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
-import {ApiClient, ApiBaseCommand} from '../src/index';
-import {RequestHeaders, RequestMethod, QueryParameters, UrlPathParameters} from '../src/apiBaseCommand';
+import {ApiBaseCommand, ApiClient} from '../src/index';
+import {QueryParameters, RequestHeaders, RequestMethod, UrlPathParameters} from '../src/apiBaseCommand';
 import {UrlBuilder} from '../src/url.builder';
 
 /* tslint:disable:max-classes-per-file */
@@ -11,7 +11,7 @@ class GetCommand implements ApiBaseCommand {
     public queryParameters: QueryParameters;
 
     constructor (name: string) {
-        this.queryParameters = {name: name};
+        this.queryParameters = {name};
     }
 }
 
@@ -40,7 +40,7 @@ class PostCommand implements ApiBaseCommand {
     public withCredentials: boolean = true;
 
     constructor (name?: string, withCredentials?: boolean) {
-        this.queryParameters = {name: name};
+        this.queryParameters = {name};
         if (withCredentials !== undefined) {
             this.withCredentials = withCredentials;
         }
@@ -55,7 +55,7 @@ describe('Api Client Service', () => {
             providers: [
                 ApiClient,
                 UrlBuilder,
-            ]
+            ],
         });
     });
 
@@ -77,7 +77,7 @@ describe('Api Client Service', () => {
             expect(req.request.withCredentials).toEqual(false);
 
             req.flush([{id: 5}, {id: 21}]);
-        })
+        }),
     );
 
     it(
@@ -91,7 +91,7 @@ describe('Api Client Service', () => {
             expect(req.request.withCredentials).toEqual(false);
             expect(req.request.headers.get('X-My-Custom-Header')).toEqual('Angular');
             expect(req.request.headers.getAll('X-My-Custom-List-Header')).toEqual(['JS', '2']);
-        })
+        }),
     );
 
     it(
@@ -108,7 +108,7 @@ describe('Api Client Service', () => {
             expect(req.request.withCredentials).toBe(true);
 
             req.flush([{id: 5}, {id: 21}]);
-        })
+        }),
     );
 
     it(
@@ -125,6 +125,6 @@ describe('Api Client Service', () => {
             expect(req.request.withCredentials).toBe(false);
 
             req.flush([{id: 5}, {id: 21}]);
-        })
+        }),
     );
 });

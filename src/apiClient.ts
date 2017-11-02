@@ -19,10 +19,11 @@ export class ApiClient {
         return this.httpClient.request<T>(
             command.method,
             this.urlBuilder.build(command.url, command.urlPathParameters),
-            this.getRequestOptions(command)
+            this.getRequestOptions(command),
         )
             .catch<any, T>((error: any) => {
                 if (retries > 0) {
+                    // tslint:disable-next-line
                     const newCommand: ApiBaseCommand = Object.assign({}, command, {__api_client_random_key__: this.getRandomId()});
 
                     return Observable.of(undefined)

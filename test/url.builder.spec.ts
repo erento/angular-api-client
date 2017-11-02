@@ -19,7 +19,7 @@ describe('Url builder', () => {
             {
                 name: 'John',
                 lastname: 'Doe',
-            }
+            },
         )).toBe('/endpoint/John/user/Doe');
     });
 
@@ -30,7 +30,7 @@ describe('Url builder', () => {
                 id: 4,
                 name: 'John',
                 NOT_IN_TEMPLATE: 'whatever',
-            }
+            },
         );
 
         expect(init).toThrowError('Url path parameters are not aligned.');
