@@ -8,6 +8,6 @@ export * from './apiClient';
 
 @NgModule({
     imports: [HttpClientModule],
-    providers: [ApiClient, UrlBuilder]
+    providers: [ApiClient, UrlBuilder],
 })
 export class ApiClientModule {}
