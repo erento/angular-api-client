@@ -1,3 +1,12 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/erento/angular-api-client/compare/v4.0.0...v5.0.0) (2017-11-02)
+
+There is no breaking change but we still raise a major version as Angular version was raised to new major release.
+
+* Upgrade of Angular to version: 5.x.x.
+* Upgrade of rxjs to version: 5.5.2.
+* Using lettable operators from rxjs.
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/erento/angular-api-client/compare/v4.0.0-beta.1...v4.0.0) (2017-09-01)
 
