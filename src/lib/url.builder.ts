@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {UrlPathParameters} from './apiBaseCommand';
+import {UrlPathParameters} from './api-base.command';
 
 @Injectable()
 export class UrlBuilder {

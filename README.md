@@ -139,5 +139,14 @@ of required retries and the ApiClient will take care of it.
 ## Testing
 Run `npm test` to execute tests.
 
-### License
+## License
 The MIT License (see the [LICENSE](LICENSE.md) file for the full text)
+
+## Publishing
+Always run `npm run build` before.
+
+To publish a package run: `npm publish ./dist`
+
+If you want only to run it locally use `npm pack` as follows:
+1. `npm pack ./dist`
+2. In your project `npm i ../PATH_TO_TAR/ng2-api-client-X.X.X.tgz` where X.X.X is the current version of a library.

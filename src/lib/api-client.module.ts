@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
-import {ApiClient} from './apiClient';
-import {UrlBuilder} from './url.builder';
 import {HttpClientModule} from '@angular/common/http';
+import {ApiClient} from './api.client';
+import {UrlBuilder} from './url.builder';
 
-export * from './apiBaseCommand';
-export * from './apiClient';
+export * from './api-base.command';
+export * from './api.client';
 
 @NgModule({
     imports: [HttpClientModule],

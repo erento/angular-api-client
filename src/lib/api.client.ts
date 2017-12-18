@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {_throw} from 'rxjs/observable/throw';
 import {catchError, delay as delayObservable, switchMap} from 'rxjs/operators';
-import {ApiBaseCommand, QueryParameters, RequestHeaders} from './apiBaseCommand';
+import {ApiBaseCommand, QueryParameters, RequestHeaders} from './api-base.command';
 import {UrlBuilder} from './url.builder';
 
 @Injectable()
