@@ -1,0 +1,27 @@
+{
+  "name": "ng2-api-client",
+  "version": "5.0.0",
+  "description": "Lazy loaded, responsive images and image backgrounds for Angular.",
+  "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erento/angular-api-client.git"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "api",
+    "command",
+    "client",
+    "http",
+    "ng"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/erento/angular-api-client",
+  "peerDependencies": {
+    "@angular/core": ">=5.0.0",
+    "@angular/common": ">=5.0.0",
+    "rxjs": ">=5.5.2",
+    "typescript": ">=2.5.0"
+  }
+}
