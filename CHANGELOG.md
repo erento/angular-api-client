@@ -1,4 +1,11 @@
 <a name="5.0.0"></a>
+# [6.0.0](https://github.com/erento/angular-api-client/compare/v5.0.0...v6.0.0) (2017-12-18)
+
+The build process has changed and it is using [ng-packagr](https://github.com/dherges/ng-packagr).
+Now we output more formats based on Angular package format.
+This shouldn't be a breaking change, but to make sure we don't break your app, we raised the major version to 6.0.0.
+
+<a name="5.0.0"></a>
 # [5.0.0](https://github.com/erento/angular-api-client/compare/v4.0.0...v5.0.0) (2017-11-02)
 
 There is no breaking change but we still raise a major version as Angular version was raised to new major release.
