@@ -1,4 +1,29 @@
-<a name="5.0.0"></a>
+<a name="6.0.1"></a>
+# [6.0.1](https://github.com/erento/angular-api-client/compare/v6.0.0...v6.0.1) (2017-12-30)
+
+- Fixed imports of RxJS operators.
+
+<a name="5.0.2"></a>
+# [5.0.2](https://github.com/erento/angular-api-client/compare/v5.0.1...v5.0.2) (2017-12-30)
+
+- Fix rollup build.
+
+<a name="5.0.1"></a>
+# [5.0.1](https://github.com/erento/angular-api-client/compare/v5.0.0...v5.0.1) (2017-12-30)
+
+- Fixed imports of RxJS operators.
+
+<a name="4.0.2"></a>
+# [4.0.2](https://github.com/erento/angular-api-client/compare/v4.0.1...v4.0.2) (2017-12-30)
+
+- Fix rollup build.
+
+<a name="4.0.1"></a>
+# [4.0.1](https://github.com/erento/angular-api-client/compare/v4.0.0...v4.0.1) (2017-12-30)
+
+- Fixed imports of RxJS operators.
+
+<a name="6.0.0"></a>
 # [6.0.0](https://github.com/erento/angular-api-client/compare/v5.0.0...v6.0.0) (2017-12-18)
 
 The build process has changed and it is using [ng-packagr](https://github.com/dherges/ng-packagr).
