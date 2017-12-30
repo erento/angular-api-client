@@ -1,6 +1,6 @@
 {
   "name": "ng2-api-client",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "API client for Angular",
   "files": [
     "src",
