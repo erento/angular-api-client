@@ -14,7 +14,9 @@ export default {
         '@angular/common/http',
         'rxjs/observable/of',
         'rxjs/observable/throw',
-        'rxjs/operators',
+        'rxjs/operators/catchError',
+        'rxjs/operators/delay',
+        'rxjs/operators/switchMap',
         'rxjs/Observable',
     ],
     globals: {
@@ -23,7 +25,9 @@ export default {
         'rxjs/observable/of': 'rxjs.observable.of',
         'rxjs/observable/throw': 'rxjs.observable.throw',
         'rxjs/Observable': 'rxjx.observable',
-        'rxjs/operators': 'rxjx.operators',
+        'rxjs/operators/catchError': 'rxjx.operators.catchError',
+        'rxjs/operators/delay': 'rxjx.operators.delay',
+        'rxjs/operators/switchMap': 'rxjx.operators.switchMap',
     },
     plugins: [typescript({typescript: require('typescript')})]
 }
