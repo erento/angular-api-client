@@ -1,3 +1,8 @@
+<a name="4.0.1"></a>
+# [4.0.1](https://github.com/erento/angular-api-client/compare/v4.0.0...v4.0.1) (2017-12-30)
+
+- Fixed imports of RxJS operators.
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/erento/angular-api-client/compare/v4.0.0-beta.1...v4.0.0) (2017-09-01)
 
