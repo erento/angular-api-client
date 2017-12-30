@@ -3,7 +3,9 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {_throw} from 'rxjs/observable/throw';
-import {catchError, delay as delayObservable, switchMap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators/catchError';
+import {delay as delayObservable} from 'rxjs/operators/delay';
+import {switchMap} from 'rxjs/operators/switchMap';
 import {ApiBaseCommand, QueryParameters, RequestHeaders} from './apiBaseCommand';
 import {UrlBuilder} from './url.builder';
 
