@@ -1,4 +1,5 @@
 {
+  "$schema": "../node_modules/ng-packagr/package.schema.json",
   "name": "ng2-api-client",
   "version": "6.0.1",
   "description": "Lazy loaded, responsive images and image backgrounds for Angular.",
@@ -23,5 +24,11 @@
     "@angular/common": ">=5.0.0",
     "rxjs": ">=5.5.2",
     "typescript": ">=2.5.0"
+  },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "public_api.ts"
+    },
+    "dest": "../dist"
   }
 }
