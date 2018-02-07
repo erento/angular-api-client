@@ -1,3 +1,11 @@
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/erento/angular-api-client/compare/v6.0.1...v6.1.0) (2018-02-07)
+
+- Updated ng-packagr to stable v2.0.0
+
+  This will fix an error where a request would not be canceled because catchError operator was incorrectly built.
+- Updated rest of dependencies
+
 <a name="6.0.1"></a>
 # [6.0.1](https://github.com/erento/angular-api-client/compare/v6.0.0...v6.0.1) (2017-12-30)
 
