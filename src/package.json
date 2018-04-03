@@ -2,7 +2,7 @@
   "$schema": "../node_modules/ng-packagr/package.schema.json",
   "name": "ng2-api-client",
   "version": "6.1.0",
-  "description": "Lazy loaded, responsive images and image backgrounds for Angular.",
+  "description": "API client for Angular",
   "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "peerDependencies": {
     "@angular/core": ">=6.0.0-rc.1",
     "@angular/common": ">=6.0.0-rc.1",
-    "rxjs": ">=6.0.0-beta.4",
+    "rxjs": ">=6.0.0-rc.0",
     "typescript": ">=2.5.0"
   },
   "ngPackage": {
