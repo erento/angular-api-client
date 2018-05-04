@@ -1,3 +1,12 @@
+<a name="7.0.0"></a>
+# [7.0.0](https://github.com/erento/angular-api-client/compare/v6.1.0...v7.0.0) (2018-05-04)
+
+- Migrated to angular CLI v6 with support for library generation
+
+### Breaking changes
+- Raised version of angular peer dependencies to `@angular/*@>=6.0.0`
+- Raised version of peer dependency on rxjs to `>=6.0.0`
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/erento/angular-api-client/compare/v6.0.1...v6.1.0) (2018-02-07)
 
