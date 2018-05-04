@@ -2,7 +2,7 @@
 
 # compiled output
 /dist
-dist.tgz
+ng2-api-client*.tgz
 /tmp
 
 # dependencies
