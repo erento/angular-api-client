@@ -1,26 +1,32 @@
 {
+  "version": "2.0.3",
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "../out-tsc/app",
-    "baseUrl": "src",
-    "target": "es5",
     "module": "commonjs",
-    "declaration": false,
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "baseUrl": "./",
+    "target": "es5",
     "lib": [
-      "es2017",
+      "es2015",
       "dom"
     ],
-    "types": [
-      "core-js",
-      "jasmine"
-    ]
-  }
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "removeComments": true,
+    "traceResolution": true,
+    "paths": {
+      "ng2-api-client": [
+        "dist/ng2-api-client"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
 }

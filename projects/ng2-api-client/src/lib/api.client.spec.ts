@@ -1,8 +1,8 @@
 import {inject, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
-import {ApiBaseCommand, ApiClient} from '../src/lib/api-client.module';
-import {QueryParameters, RequestHeaders, RequestMethod, UrlPathParameters} from '../src/lib/api-base.command';
-import {UrlBuilder} from '../src/lib/url.builder';
+import {ApiBaseCommand, QueryParameters, RequestHeaders, RequestMethod, UrlPathParameters} from './api-base.command';
+import {UrlBuilder} from './url.builder';
+import {ApiClient} from './api.client';
 
 /* tslint:disable:max-classes-per-file */
 class GetCommand implements ApiBaseCommand {

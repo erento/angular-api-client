@@ -1,11 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
-import {_throw} from 'rxjs/observable/throw';
-import {catchError} from 'rxjs/operators/catchError';
-import {delay as delayObservable} from 'rxjs/operators/delay';
-import {switchMap} from 'rxjs/operators/switchMap';
+import {Observable, of, throwError} from 'rxjs';
+import {catchError, delay, switchMap} from 'rxjs/operators';
 import {ApiBaseCommand, QueryParameters, RequestHeaders} from './api-base.command';
 import {UrlBuilder} from './url.builder';
 
@@ -27,18 +23,18 @@ export class ApiClient {
                     const newCommand: ApiBaseCommand = Object.assign({}, command, {__api_client_random_key__: this.getRandomId()});
 
                     return of(undefined).pipe(
-                        delayObservable(this.defaultRetryDelay),
+                        delay(this.defaultRetryDelay),
                         switchMap((): Observable<T> => this.executeRequest(newCommand, retries - 1)),
                     );
                 }
 
-                return _throw(error);
+                return throwError(error);
             }),
         );
     }
 
-    public setRetryDelay (delay: number | Date): void {
-        this.defaultRetryDelay = delay;
+    public setRetryDelay (retryDelay: number | Date): void {
+        this.defaultRetryDelay = retryDelay;
     }
 
     private getRequestOptions (command: ApiBaseCommand): object {
