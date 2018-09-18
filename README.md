@@ -145,8 +145,8 @@ The MIT License (see the [LICENSE](LICENSE.md) file for the full text)
 ## Publishing
 Always run `npm run build` before.
 
-To publish a package run: `npm publish ./dist`
+To publish a package run: `npm publish ./dist/ng2-api-client`
 
 If you want only to run it locally use `npm pack` as follows:
-1. `npm pack ./dist`
+1. `npm pack ./dist/ng2-api-client`
 2. In your project `npm i ../PATH_TO_TAR/ng2-api-client-X.X.X.tgz` where X.X.X is the current version of a library.
