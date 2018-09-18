@@ -27,6 +27,6 @@
     }
   },
   "include": [
-    "src/**/*.ts"
+    "projects/ng2-api-client/src/**/*.ts"
   ]
 }
