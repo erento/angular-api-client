@@ -1,3 +1,9 @@
+<a name="7.0.1"></a>
+# [7.0.1](https://github.com/erento/angular-api-client/compare/v7.0.0...v7.0.1) (2018-09-18)
+
+- Updated ng-packagr to stable v4.2.0
+- Updated other dependecies
+
 <a name="7.0.0"></a>
 # [7.0.0](https://github.com/erento/angular-api-client/compare/v6.1.0...v7.0.0) (2018-05-04)
 
