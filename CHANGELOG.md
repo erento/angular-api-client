@@ -1,3 +1,8 @@
+<a name="7.0.2"></a>
+# [7.0.2](https://github.com/erento/angular-api-client/compare/v7.0.1...v7.0.2) (2018-11-07)
+
+- Increase peer dependency on angular/{common & core}
+
 <a name="7.0.1"></a>
 # [7.0.1](https://github.com/erento/angular-api-client/compare/v7.0.0...v7.0.1) (2018-09-18)
 
