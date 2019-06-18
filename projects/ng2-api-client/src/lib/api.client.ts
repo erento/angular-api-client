@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
+import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {catchError, delay, switchMap} from 'rxjs/operators';
 import {ApiBaseCommand, QueryParameters, RequestHeaders} from './api-base.command';
 import {UrlBuilder} from './url.builder';
@@ -17,7 +17,7 @@ export class ApiClient {
             this.urlBuilder.build(command.url, command.urlPathParameters),
             this.getRequestOptions(command),
         ).pipe(
-            catchError<any, T>((error: any) => {
+            catchError<any, ObservableInput<T>>((error: any): Observable<T> => {
                 if (retries > 0) {
                     // tslint:disable-next-line
                     const newCommand: ApiBaseCommand = Object.assign({}, command, {__api_client_random_key__: this.getRandomId()});
