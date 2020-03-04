@@ -13,7 +13,7 @@
     "build": "ng build",
     "ng": "ng",
     "publish": "false",
-    "test": "ng test"
+    "test": "ng test --watch false"
   },
   "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
   "repository": {
