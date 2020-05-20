@@ -17,7 +17,8 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/ng2-api-client/ng-package.prod.json"
+              "project": "projects/ng2-api-client/ng-package.prod.json",
+              "tsConfig": "projects/ng2-api-client/tsconfig.lib.prod.json"
             }
           }
         },
