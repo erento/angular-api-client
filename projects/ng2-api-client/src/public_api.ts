@@ -1,3 +1,4 @@
+// tslint:disable:file-name-casing
 /*
  * Public API Surface of ng2-api-client
  */

@@ -1,19 +1,19 @@
 import {UrlBuilder} from './url.builder';
 
-describe('Url builder', () => {
+describe('Url builder', (): void => {
     let builder: UrlBuilder;
 
-    beforeEach(() => {
+    beforeEach((): void => {
         builder = new UrlBuilder();
     });
 
-    it('should keep url as is when there are no parameters', () => {
+    it('should keep url as is when there are no parameters', (): void => {
         expect(builder.build('/endpoint/', {})).toBe('/endpoint/');
         expect(builder.build('/endpoint/', undefined)).toBe('/endpoint/');
         expect(builder.build('/endpoint/', null)).toBe('/endpoint/');
     });
 
-    it('should replace path parameters', () => {
+    it('should replace path parameters', (): void => {
         expect(builder.build(
             '/endpoint/:name/user/:lastname',
             {
@@ -23,7 +23,7 @@ describe('Url builder', () => {
         )).toBe('/endpoint/John/user/Doe');
     });
 
-    it('should throw an error', () => {
+    it('should throw an error', (): void => {
         const init: () => string = (): string => builder.build(
             '/endpoint/:name',
             {
