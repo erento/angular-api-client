@@ -1,3 +1,37 @@
+<a name="8.0.0"></a>
+# [8.0.0](https://github.com/erento/angular-api-client/compare/v7.0.2...v8.0.0) (2020-09-22)
+
+- Update dependencies to angular v10
+
+### Breaking changes
+- Change the way the `ApiClientModule` is imported to be "independent" from `HttpClient`.
+`HttpClient` is still the only tested solution but it requires to be injected to the `ApiClientModule` — this allows us to share the same http interceptors registered in the host application in the `AppModule`.
+
+  _Before:_
+
+  ```ts
+  @NgModule({
+    imports: [
+      ApiClientModule,
+    ],
+  })
+  ```
+
+  _After:_
+
+  ```ts
+  @NgModule({
+    imports: [
+      ApiClientModule.forRoot({
+        httpClient: {
+          provide: ApiClientHttpClient,
+          useClass: HttpClient,
+        },
+      }),
+    ],
+  })
+  ```
+
 <a name="7.0.2"></a>
 # [7.0.2](https://github.com/erento/angular-api-client/compare/v7.0.1...v7.0.2) (2018-11-07)
 
@@ -139,23 +173,23 @@ value object responsible to carry information of the desired request. ([d79fb53]
   ```ts
   export class FetchUserCommand extends ApiBaseCommand {
       public method: RequestMethod = RequestMethod.Get;
-  
+
       constructor (userUuid: string) {
           super('/api/user/:uuid', {
-              uuid: userUuid 
+              uuid: userUuid
           });
       }
   }
   ```
-  
+
   _After:_
-  
+
   ```ts
   export class FetchUserCommand implements ApiBaseCommand {
       public method: RequestMethod = RequestMethod.Get;
       public url: string = '/api/user/:uuid';
       public urlPathParameters: UrlPathParameters;
-  
+
       constructor (userUuid: string) {
         this.urlPathParameters = {uuid: userUuid};
       }
