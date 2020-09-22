@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {catchError, delay, switchMap} from 'rxjs/operators';
 import {ApiBaseCommand, QueryParameters, RequestHeaders} from './api-base.command';
@@ -9,7 +9,10 @@ import {UrlBuilder} from './url.builder';
 export class ApiClient {
     private defaultRetryDelay: number | Date = 0;
 
-    constructor (private httpClient: HttpClient, private urlBuilder: UrlBuilder) {}
+    constructor (
+        private readonly httpClient: HttpClient,
+        private readonly urlBuilder: UrlBuilder,
+    ) {}
 
     public executeRequest<T> (command: ApiBaseCommand, retries: number = 0): Observable<T> {
         return this.httpClient.request<T>(
@@ -78,7 +81,7 @@ export class ApiClient {
         const s: string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         return Array(length)
             .fill('')
-            .map(() => s.charAt(Math.floor(Math.random() * s.length)))
+            .map((): string => s.charAt(Math.floor(Math.random() * s.length)))
             .join('');
     }
 }

@@ -12,20 +12,22 @@ export class UrlBuilder {
 
         const urlPartsFiltered: (string | number)[] = url
             .split('/')
-            .map((urlPart: string) => urlPart.charAt(0) === ':' ? urlParameters[urlPart.substr(1)] : urlPart);
+            .map((urlPart: string): string | number => <string | number> (
+                urlPart.charAt(0) === ':' ? urlParameters[urlPart.substr(1)] : urlPart
+            ));
 
         return urlPartsFiltered.join('/');
     }
 
     private checkUrlPathParameters (url: string, urlParameters: UrlPathParameters): void {
         const diff: Function = (left: string[], right: string[]): string[] => left
-            .filter((x: string) => right.indexOf(x) === -1)
-            .concat(right.filter((x: string) => left.indexOf(x) === -1));
+            .filter((x: string): boolean => right.indexOf(x) === -1)
+            .concat(right.filter((x: string): boolean => left.indexOf(x) === -1));
 
         const replaceParts: string[] = url
             .split('/')
-            .filter((urlPart: string) => urlPart.charAt(0) === ':')
-            .map((urlPart: string) => urlPart.substr(1));
+            .filter((urlPart: string): boolean => urlPart.charAt(0) === ':')
+            .map((urlPart: string): string => urlPart.substr(1));
 
         if (diff(replaceParts, Object.keys(urlParameters)).length > 0) {
             throw new Error('Url path parameters are not aligned.');

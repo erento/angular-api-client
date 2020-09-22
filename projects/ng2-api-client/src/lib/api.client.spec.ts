@@ -1,8 +1,8 @@
-import {inject, TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
+import {TestBed} from '@angular/core/testing';
 import {ApiBaseCommand, QueryParameters, RequestHeaders, RequestMethod, UrlPathParameters} from './api-base.command';
-import {UrlBuilder} from './url.builder';
 import {ApiClient} from './api.client';
+import {UrlBuilder} from './url.builder';
 
 /* tslint:disable:max-classes-per-file */
 class GetCommand implements ApiBaseCommand {
@@ -48,8 +48,8 @@ class PostCommand implements ApiBaseCommand {
 }
 /* tslint:enable:max-classes-per-file */
 
-describe('Api Client Service', () => {
-    beforeEach(() => {
+describe('Api Client Service', (): void => {
+    beforeEach((): void => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
@@ -59,72 +59,73 @@ describe('Api Client Service', () => {
         });
     });
 
-    afterEach(inject([HttpTestingController], (httpMock: HttpTestingController) => {
+    afterEach((): void => {
+        const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
         httpMock.verify();
-    }));
+    });
 
-    it(
-        'should execute GET method and return a response',
-        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
-            apiClient.executeRequest(new GetCommand('john')).subscribe((response: any) => {
-                expect(response.length).toBe(2);
-                expect(response[0].id).toBe(5);
-            });
+    it('should execute GET method and return a response', (): void => {
+        const apiClient: ApiClient = TestBed.inject(ApiClient);
+        const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
 
-            const req: TestRequest = httpMock.expectOne('/my-get-endpoint/?name=john');
+        apiClient.executeRequest(new GetCommand('john')).subscribe((response: any): void => {
+            expect(response.length).toBe(2);
+            expect(response[0].id).toBe(5);
+        });
 
-            expect(req.request.method).toEqual('GET');
-            expect(req.request.withCredentials).toEqual(false);
+        const req: TestRequest = httpMock.expectOne('/my-get-endpoint/?name=john');
 
-            req.flush([{id: 5}, {id: 21}]);
-        }),
-    );
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.withCredentials).toEqual(false);
 
-    it(
-        'should execute GET with placeholder replace',
-        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
-            apiClient.executeRequest(new GetIdCommandWithHeader(4, 'john')).subscribe();
+        req.flush([{id: 5}, {id: 21}]);
+    });
 
-            const req: TestRequest = httpMock.expectOne('/my-get-endpoint/4/whatever/john');
+    it('should execute GET with placeholder replace', (): void => {
+        const apiClient: ApiClient = TestBed.inject(ApiClient);
+        const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
 
-            expect(req.request.method).toEqual('GET');
-            expect(req.request.withCredentials).toEqual(false);
-            expect(req.request.headers.get('X-My-Custom-Header')).toEqual('Angular');
-            expect(req.request.headers.getAll('X-My-Custom-List-Header')).toEqual(['JS', '2']);
-        }),
-    );
+        apiClient.executeRequest(new GetIdCommandWithHeader(4, 'john')).subscribe();
 
-    it(
-        'should execute POST method and return a response',
-        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
-            apiClient.executeRequest(new PostCommand()).subscribe((response: any) => {
-                expect(response.length).toBe(2);
-            });
+        const req: TestRequest = httpMock.expectOne('/my-get-endpoint/4/whatever/john');
 
-            const req: TestRequest = httpMock.expectOne('/my-post-endpoint/');
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.withCredentials).toEqual(false);
+        expect(req.request.headers.get('X-My-Custom-Header')).toEqual('Angular');
+        expect(req.request.headers.getAll('X-My-Custom-List-Header')).toEqual(['JS', '2']);
+    });
 
-            expect(req.request.method).toBe('POST');
-            expect(req.request.body).toBe('My request body');
-            expect(req.request.withCredentials).toBe(true);
+    it('should execute POST method and return a response', (): void => {
+        const apiClient: ApiClient = TestBed.inject(ApiClient);
+        const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
 
-            req.flush([{id: 5}, {id: 21}]);
-        }),
-    );
+        apiClient.executeRequest(new PostCommand()).subscribe((response: any): void => {
+            expect(response.length).toBe(2);
+        });
 
-    it(
-        'should execute POST method with query parameter and return a response',
-        inject([ApiClient, HttpTestingController], (apiClient: ApiClient, httpMock: HttpTestingController) => {
-            apiClient.executeRequest(new PostCommand('Markus', false)).subscribe((response: any) => {
-                expect(response.length).toBe(2);
-            });
+        const req: TestRequest = httpMock.expectOne('/my-post-endpoint/');
 
-            const req: TestRequest = httpMock.expectOne('/my-post-endpoint/?name=Markus');
+        expect(req.request.method).toBe('POST');
+        expect(req.request.body).toBe('My request body');
+        expect(req.request.withCredentials).toBe(true);
 
-            expect(req.request.method).toBe('POST');
-            expect(req.request.body).toBe('My request body');
-            expect(req.request.withCredentials).toBe(false);
+        req.flush([{id: 5}, {id: 21}]);
+    });
 
-            req.flush([{id: 5}, {id: 21}]);
-        }),
-    );
+    it('should execute POST method with query parameter and return a response', (): void => {
+        const apiClient: ApiClient = TestBed.inject(ApiClient);
+        const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
+
+        apiClient.executeRequest(new PostCommand('Markus', false)).subscribe((response: any): void => {
+            expect(response.length).toBe(2);
+        });
+
+        const req: TestRequest = httpMock.expectOne('/my-post-endpoint/?name=Markus');
+
+        expect(req.request.method).toBe('POST');
+        expect(req.request.body).toBe('My request body');
+        expect(req.request.withCredentials).toBe(false);
+
+        req.flush([{id: 5}, {id: 21}]);
+    });
 });
