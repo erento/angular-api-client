@@ -16,14 +16,21 @@ npm install --save ng2-api-client
 Import __API client module__ to your `app.module.ts`
 ```ts
 // ...
-import {ApiClientModule} from 'ng2-api-client';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {ApiClientHttpClient, ApiClientModule} from 'ng2-api-client';
+import {HttpClient} from 'ng2-api-client';
 // ...
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     // ...
-    ApiClientModule,
+    HttpClientModule,
+    // ...
+    ApiClientModule.forRoot({httpClient: {
+        provide: ApiClientHttpClient,
+        useClass: HttpClient,
+    }}),
   ],
   bootstrap: [AppComponent]
 })
@@ -31,7 +38,7 @@ export class AppModule {}
 ```
 
 Inject it to your class (could be Component, Service, etc...)
-- `app.component.ts`:  
+- `app.component.ts`:
   ```ts
   import {Component, OnInit} from '@angular/core';
   import {ApiClient} from 'ng2-api-client';
@@ -41,8 +48,8 @@ Inject it to your class (could be Component, Service, etc...)
     templateUrl: './app.component.html',
   })
   export class AppComponent implements OnInit {
-    constructor(private apiClient: ApiClient) {}
-    
+    constructor(private readonly apiClient: ApiClient) {}
+
     ngOnInit() {
       this.apiClient
         .executeRequest<User>(new FetchUserCommand('u-u-i-d'))
@@ -53,10 +60,10 @@ Inject it to your class (could be Component, Service, etc...)
   }
   ```
 
-- `fetch-user.command.ts`:  
+- `fetch-user.command.ts`:
   ```ts
   import {ApiBaseCommand, RequestMethod, UrlPathParameters} from 'ng2-api-client';
-  
+
   export class FetchUserCommand implements ApiBaseCommand {
     public headers: Headers = {'X-Forwarded-For': 'proxy1'};
     public method: RequestMethod = RequestMethod.Get;
@@ -85,9 +92,9 @@ of required retries and the ApiClient will take care of it.
 - __url__
 
   The url path without a scheme. Url can include wildcards starting with `:`.
-  
+
   Examples: `/api/user/:id` or `/api/user/:name/:lastname` ...
-  
+
   If the url includes the wildcard it will be validated with an input defined in the property
   `urlPathParameters` and replaced by the provided value.
 
@@ -97,15 +104,15 @@ of required retries and the ApiClient will take care of it.
 - __urlPathParameters__
 
   This value is required when the wildcard is included in the url.
-  
+
   Example: `{role: 'admin'}` with the url: `/user/:role` will generate: `/user/admin`
 
 - __queryParameters__
 
   An object defining query parameters.
-  
+
   _Examples:_
-  
+
    `{search: 'neymar', team: 'psg'}` will generate: `?search=neymar&team=psg`
 
 - __headers__
@@ -120,20 +127,20 @@ of required retries and the ApiClient will take care of it.
 
   Boolean value that indicates whether or not requests should be made using credentials
   such as cookies, authorization headers or TLS client certificates.
-  
+
   Default value: `false`.
 
 - __responseType__
 
   Used to set the response type of your request. Can be one of:
   `'arraybuffer' | 'blob' | 'json' | 'text'`.
-  
+
   Default value: `json`.
 
 - __reportProgress__
 
   Boolean value that indicates whether or not requests should report about progress.
-  
+
   Default value: `false`.
 
 ## Testing
@@ -145,8 +152,8 @@ The MIT License (see the [LICENSE](LICENSE.md) file for the full text)
 ## Publishing
 Always run `npm run build` before.
 
-To publish a package run: `npm publish ./dist/ng2-api-client`
+To publish a package run: `npm publish ./dist/lib`
 
 If you want only to run it locally use `npm pack` as follows:
-1. `npm pack ./dist/ng2-api-client`
+1. `npm pack ./dist/lib`
 2. In your project `npm i ../PATH_TO_TAR/ng2-api-client-X.X.X.tgz` where X.X.X is the current version of a library.
