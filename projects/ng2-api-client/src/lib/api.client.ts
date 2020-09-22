@@ -1,8 +1,9 @@
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, ObservableInput, of, throwError} from 'rxjs';
 import {catchError, delay, switchMap} from 'rxjs/operators';
 import {ApiBaseCommand, QueryParameters, RequestHeaders} from './api-base.command';
+import {ApiClientHttpClient} from './http';
 import {UrlBuilder} from './url.builder';
 
 @Injectable()
@@ -10,7 +11,7 @@ export class ApiClient {
     private defaultRetryDelay: number | Date = 0;
 
     constructor (
-        private readonly httpClient: HttpClient,
+        private readonly httpClient: ApiClientHttpClient,
         private readonly urlBuilder: UrlBuilder,
     ) {}
 

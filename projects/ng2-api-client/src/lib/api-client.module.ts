@@ -1,10 +1,22 @@
-import {HttpClientModule} from '@angular/common/http';
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {ApiClient} from './api.client';
 import {UrlBuilder} from './url.builder';
 
-@NgModule({
-    imports: [HttpClientModule],
-    providers: [ApiClient, UrlBuilder],
-})
-export class ApiClientModule { }
+export interface ApiClientModuleConfig {
+    httpClient: Provider;
+}
+
+@NgModule()
+export class ApiClientModule {
+    // Use this method in your root module to provide the ApiClient
+    public static forRoot (config: ApiClientModuleConfig): ModuleWithProviders<ApiClientModule> {
+        return {
+            ngModule: ApiClientModule,
+            providers: [
+                config.httpClient,
+                ApiClient,
+                UrlBuilder,
+            ],
+        };
+    }
+}
