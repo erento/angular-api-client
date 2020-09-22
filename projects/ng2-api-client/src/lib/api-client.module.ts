@@ -8,17 +8,15 @@ export interface ApiClientModuleConfig {
 
 @NgModule()
 export class ApiClientModule {
-    /**
-     * Use this method in your root module to provide the ApiClient
-     */
-    static forRoot (config: ApiClientModuleConfig): ModuleWithProviders<ApiClientModule> {
+    // Use this method in your root module to provide the ApiClient
+    public static forRoot (config: ApiClientModuleConfig): ModuleWithProviders<ApiClientModule> {
         return {
             ngModule: ApiClientModule,
             providers: [
                 config.httpClient,
                 ApiClient,
                 UrlBuilder,
-            ]
+            ],
         };
     }
 }
