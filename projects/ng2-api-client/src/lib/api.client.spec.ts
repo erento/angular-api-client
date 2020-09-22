@@ -1,8 +1,10 @@
+import {HttpClient} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {ApiBaseCommand, QueryParameters, RequestHeaders, RequestMethod, UrlPathParameters} from './api-base.command';
+import {ApiClientModule} from './api-client.module';
 import {ApiClient} from './api.client';
-import {UrlBuilder} from './url.builder';
+import {ApiClientHttpClient} from './http';
 
 /* tslint:disable:max-classes-per-file */
 class GetCommand implements ApiBaseCommand {
@@ -51,10 +53,14 @@ class PostCommand implements ApiBaseCommand {
 describe('Api Client Service', (): void => {
     beforeEach((): void => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [
-                ApiClient,
-                UrlBuilder,
+            imports: [
+                HttpClientTestingModule,
+                ApiClientModule.forRoot({
+                    httpClient: {
+                        provide: ApiClientHttpClient,
+                        useClass: HttpClient,
+                    },
+                }),
             ],
         });
     });
