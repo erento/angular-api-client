@@ -23,7 +23,7 @@ class GetIdCommandWithHeader implements ApiBaseCommand {
     public urlPathParameters: UrlPathParameters;
     public headers: RequestHeaders = {
         'X-My-Custom-Header': 'Angular',
-        'X-My-Custom-List-Header': ['JS', '2', undefined, null],
+        'X-My-Custom-List-Header': ['JS', '2', <any> undefined, null],
     };
 
     constructor (id: number, name: string) {
@@ -38,11 +38,13 @@ class PostCommand implements ApiBaseCommand {
     public url: string = '/my-post-endpoint/';
     public method: RequestMethod = RequestMethod.Post;
     public body: string = 'My request body';
-    public queryParameters: QueryParameters;
+    public queryParameters: QueryParameters = {};
     public withCredentials: boolean = true;
 
     constructor (name?: string, withCredentials?: boolean) {
-        this.queryParameters = {name};
+        if (name) {
+            this.queryParameters = {name};
+        }
         if (withCredentials !== undefined) {
             this.withCredentials = withCredentials;
         }
