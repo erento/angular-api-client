@@ -9,8 +9,8 @@ describe('Url builder', (): void => {
 
     it('should keep url as is when there are no parameters', (): void => {
         expect(builder.build('/endpoint/', {})).toBe('/endpoint/');
-        expect(builder.build('/endpoint/', undefined)).toBe('/endpoint/');
-        expect(builder.build('/endpoint/', null)).toBe('/endpoint/');
+        expect(builder.build('/endpoint/', <any> undefined)).toBe('/endpoint/');
+        expect(builder.build('/endpoint/', <any> null)).toBe('/endpoint/');
     });
 
     it('should replace path parameters', (): void => {

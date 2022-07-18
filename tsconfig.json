@@ -1,36 +1,38 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "version": "2.0.3",
   "compileOnSave": false,
   "compilerOptions": {
-    "module": "esnext",
     "baseUrl": "./",
-    "target": "es2015",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "sourceMap": true,
-    "inlineSources": true,
-    "declaration": true,
-    "removeComments": true,
-    "traceResolution": true,
-    "downlevelIteration": true,
-    "importHelpers": true,
     "outDir": "./dist/out-tsc",
-    "moduleResolution": "node",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
     "paths": {
       "ng2-api-client": [
+        "dist/ng2-api-client/ng2-api-client",
         "dist/ng2-api-client"
       ]
-    }
+    },
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

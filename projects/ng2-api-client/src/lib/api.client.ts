@@ -18,7 +18,7 @@ export class ApiClient {
     public executeRequest<T> (command: ApiBaseCommand, retries: number = 0): Observable<T> {
         return this.httpClient.request<T>(
             command.method,
-            this.urlBuilder.build(command.url, command.urlPathParameters),
+            this.urlBuilder.build(command.url, command.urlPathParameters || {}),
             this.getRequestOptions(command),
         ).pipe(
             catchError<any, ObservableInput<T>>((error: any): Observable<T> => {
@@ -44,8 +44,8 @@ export class ApiClient {
     private getRequestOptions (command: ApiBaseCommand): object {
         return {
             body: command.body,
-            headers: this.getHttpHeaders(command.headers),
-            params: this.getHttpParams(command.queryParameters),
+            headers: this.getHttpHeaders(command.headers || {}),
+            params: this.getHttpParams(command.queryParameters || {}),
             responseType: command.responseType || 'json',
             reportProgress: command.reportProgress === true,
             withCredentials: command.withCredentials === true,
