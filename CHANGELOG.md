@@ -1,3 +1,9 @@
+<a name="9.0.0"></a>
+# [9.0.0](https://github.com/erento/angular-api-client/compare/v8.0.0...v9.0.0) (2022-07-18)
+
+### Breaking changes
+- Update dependencies to angular v14
+
 <a name="8.0.0"></a>
 # [8.0.0](https://github.com/erento/angular-api-client/compare/v7.0.2...v8.0.0) (2020-09-22)
 
